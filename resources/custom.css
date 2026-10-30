@@ -47,8 +47,8 @@ html {
 }
 .flip-inner {
   position: relative;
-  width: min(540px, 88vw);
-  aspect-ratio: 1.75;
+  width: min(560px, 88vw);
+  aspect-ratio: 1.7;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.25, 1);
   cursor: pointer;
@@ -70,7 +70,7 @@ html {
   background: var(--page-background, #fcfbf8);
   border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
   border-radius: 18px;
-  padding: 24px 28px;
+  padding: 26px 30px;
   display: flex;
   flex-direction: column;
   box-shadow:
@@ -97,20 +97,27 @@ html {
   50% { transform: translateY(-14px); }
 }
 
-/* ---------- card faces ---------- */
+/* ---------- shared face furniture ---------- */
+.fc-keyline {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(20, 20, 20, 0.14);
+  border-radius: 12px;
+  pointer-events: none;
+}
 .fc-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
+  position: relative;
 }
-.fc-logo {
-  height: 24px;
-  width: auto;
-}
-.fc-logo-sm {
-  height: 13px;
-  opacity: 0.85;
+.fc-brand {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #141414;
 }
 .fc-flipnote {
   font-family: var(--font-code), ui-monospace, monospace;
@@ -121,23 +128,24 @@ html {
 }
 .fc-bottom {
   margin-top: auto;
+  position: relative;
 }
 .fc-name {
   font-family: var(--font-heading), system-ui, sans-serif;
   font-weight: 800;
-  font-size: clamp(20px, 4.6vw, 28px);
-  letter-spacing: -0.02em;
+  font-size: clamp(24px, 5.4vw, 34px);
+  letter-spacing: -0.025em;
   color: #141414;
-  line-height: 1.15;
+  line-height: 1.08;
 }
 .fc-role {
   font-family: var(--font-code), ui-monospace, monospace;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #0e7490;
-  margin-top: 7px;
+  margin-top: 9px;
 }
 .fc-loc {
   font-family: var(--font-code), ui-monospace, monospace;
@@ -146,16 +154,38 @@ html {
   color: #6e6a60;
   margin-top: 5px;
 }
+.fc-ghost {
+  position: absolute;
+  right: 16px;
+  bottom: 2px;
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 84px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(20, 20, 20, 0.14);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------- back face ---------- */
+.fc-logo {
+  height: 22px;
+  width: auto;
+}
 .fc-rows {
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  margin-top: 10px;
 }
 .fc-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 0;
+  padding: 10px 0;
   border-bottom: 1px solid rgba(20, 20, 20, 0.08);
   text-decoration: none;
   color: #141414;
@@ -171,6 +201,8 @@ html {
   height: 15px;
   color: #0e7490;
   flex: none;
+  position: relative;
+  z-index: 1;
 }
 .fc-label {
   font-family: var(--font-code), ui-monospace, monospace;
@@ -180,11 +212,15 @@ html {
   color: #9a968c;
   width: 52px;
   flex: none;
+  position: relative;
+  z-index: 1;
 }
 .fc-value {
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 13.5px;
   font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 .fc-backbottom {
   margin-top: auto;
@@ -192,6 +228,48 @@ html {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  position: relative;
+}
+.fc-print {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: #9a968c;
+}
+
+/* ---------- water wave under the phone row ---------- */
+.fc-row-phone {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 14px;
+}
+.fc-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 12px;
+  pointer-events: none;
+}
+.fc-wave-svg {
+  width: 200%;
+  height: 100%;
+  display: block;
+}
+.fc-wave path {
+  fill: none;
+  stroke: #0e7490;
+  stroke-width: 1.4;
+}
+.fc-wave .w1 {
+  animation: wave-drift 7s linear infinite;
+}
+.fc-wave .w2 {
+  stroke-opacity: 0.4;
+  animation: wave-drift 11s linear infinite reverse;
+}
+@keyframes wave-drift {
+  to { transform: translateX(-50%); }
 }
 
 @media (max-width: 520px) {
@@ -205,13 +283,19 @@ html {
   .fc-value {
     font-size: 12.5px;
   }
+  .fc-ghost {
+    font-size: 64px;
+  }
 }
 
 @media print {
   body {
     background: #ffffff !important;
   }
-  .float-shadow {
+  .float-shadow,
+  .fc-ghost,
+  .fc-wave,
+  .fc-keyline {
     display: none;
   }
   .flip-inner {
@@ -236,5 +320,8 @@ html {
   }
   .flip-inner {
     transition: none;
+  }
+  .fc-wave path {
+    animation: none;
   }
 }
