@@ -1,0 +1,75 @@
+/* Light-mode tuning and print output on top of Once UI tokens. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Once UI's translucent surfaces are designed against a visible page tint;
+   on plain white they flatten out. A barely-there warm cast restores depth
+   without introducing a color scheme. */
+:root[data-theme='light'] body {
+  background-color: #fafaf8;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  header,
+  footer,
+  canvas,
+  [data-background] {
+    display: none !important;
+  }
+  main [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+/* ---------- circling card ---------- */
+.card-orb {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+}
+.card-ring {
+  position: absolute;
+  inset: 0;
+  animation: card-spin 30s linear infinite;
+}
+.card-ring text {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 3.2px;
+  fill: var(--neutral-on-background-strong, #1f1f1f);
+}
+@keyframes card-spin {
+  to { transform: rotate(360deg); }
+}
+.card-disc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  background: var(--neutral-background-strong, #141414);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-disc img {
+  width: 88px;
+  height: auto;
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-ring { animation: none; }
+}
