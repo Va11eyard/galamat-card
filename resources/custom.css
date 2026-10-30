@@ -4,153 +4,237 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Once UI's translucent surfaces are designed against a visible page tint;
-   on plain white they flatten out. A barely-there warm cast restores depth
-   without introducing a color scheme. */
 :root[data-theme='light'] body {
   background-color: #fafaf8;
 }
 
-@media print {
-  body {
-    background: #ffffff !important;
-  }
-  header,
-  footer,
-  canvas,
-  [data-background] {
-    display: none !important;
-  }
-  main [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  a {
-    text-decoration: none;
-  }
-}
-
-/* ---------- circling card ---------- */
-.card-orb {
-  position: relative;
-  width: 240px;
-  height: 240px;
-  margin: 0 auto;
-}
-.card-ring {
-  position: absolute;
-  inset: 0;
-  animation: card-spin 30s linear infinite;
-}
-.card-ring text {
-  font-family: var(--font-code), ui-monospace, monospace;
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 3.2px;
-  fill: var(--neutral-on-background-strong, #1f1f1f);
-}
-@keyframes card-spin {
-  to { transform: rotate(360deg); }
-}
-.card-disc {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 148px;
-  height: 148px;
-  border-radius: 50%;
-  background: var(--neutral-background-strong, #141414);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.card-disc img {
-  width: 88px;
-  height: auto;
-  display: block;
-}
-@media (prefers-reduced-motion: reduce) {
-  .card-ring { animation: none; }
-}
+/* ---------- save-contact pill ---------- */
 .card-vcf {
   display: inline-block;
   font-family: var(--font-code), ui-monospace, monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--neutral-on-background-strong, #1f1f1f);
-  border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
+  color: #141414;
+  border: 1.5px solid #141414;
   border-radius: 999px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   transition: background 0.16s ease, color 0.16s ease;
+  white-space: nowrap;
 }
 .card-vcf:hover {
-  background: var(--neutral-background-strong, #141414);
-  color: var(--neutral-on-background-strong, #fcfbf8);
+  background: #141414;
+  color: #fcfbf8;
 }
 
-/* ---------- floating 3D card ---------- */
-.float-scene {
-  perspective: 1100px;
+/* ---------- floating flippable business card ---------- */
+.flip-scene {
+  perspective: 1200px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
 .float-card {
-  position: relative;
   transform-style: preserve-3d;
   transition: transform 0.18s ease-out;
   will-change: transform;
-}
-.float-card.is-tilting {
-  animation: none;
 }
 .float-bob {
   transform-style: preserve-3d;
   animation: float-bob 6s ease-in-out infinite;
 }
-.float-body {
+.flip-inner {
+  position: relative;
+  width: min(540px, 88vw);
+  aspect-ratio: 1.75;
   transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.25, 1);
+  cursor: pointer;
+  outline: none;
+}
+.flip-inner:focus-visible {
+  outline: 2px solid #0e7490;
+  outline-offset: 8px;
+  border-radius: 18px;
+}
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   background: var(--page-background, #fcfbf8);
   border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
-  border-radius: 24px;
-  padding: 40px 34px 30px;
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
   box-shadow:
-    0 24px 50px -18px rgba(20, 20, 20, 0.28),
-    0 6px 18px -8px rgba(20, 20, 20, 0.16);
+    0 24px 50px -18px rgba(20, 20, 20, 0.25),
+    0 6px 18px -8px rgba(20, 20, 20, 0.14);
+  overflow: hidden;
+}
+.card-back {
+  transform: rotateY(180deg);
 }
 .float-shadow {
   position: absolute;
   left: 14%;
   right: 14%;
-  bottom: -26px;
+  bottom: -30px;
   height: 26px;
   border-radius: 50%;
   background: rgba(20, 20, 20, 0.22);
   filter: blur(14px);
   transform: translateZ(-60px);
 }
-/* depth layers inside the card */
-.float-body > * {
-  transform-style: preserve-3d;
-}
-.float-card .card-orb {
-  transform: translateZ(56px);
-}
-.float-card h1 {
-  transform: translateZ(34px);
-}
-.float-card .card-vcf {
-  transform: translateZ(28px);
-}
 @keyframes float-bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-14px); }
 }
+
+/* ---------- card faces ---------- */
+.fc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.fc-logo {
+  height: 24px;
+  width: auto;
+}
+.fc-logo-sm {
+  height: 13px;
+  opacity: 0.85;
+}
+.fc-flipnote {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a968c;
+}
+.fc-bottom {
+  margin-top: auto;
+}
+.fc-name {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(20px, 4.6vw, 28px);
+  letter-spacing: -0.02em;
+  color: #141414;
+  line-height: 1.15;
+}
+.fc-role {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0e7490;
+  margin-top: 7px;
+}
+.fc-loc {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: #6e6a60;
+  margin-top: 5px;
+}
+.fc-rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.fc-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.08);
+  text-decoration: none;
+  color: #141414;
+}
+.fc-row:last-child {
+  border-bottom: 0;
+}
+.fc-row:hover .fc-value {
+  color: #0e7490;
+}
+.fc-icon {
+  width: 15px;
+  height: 15px;
+  color: #0e7490;
+  flex: none;
+}
+.fc-label {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a968c;
+  width: 52px;
+  flex: none;
+}
+.fc-value {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.fc-backbottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 520px) {
+  .flip-inner {
+    width: 92vw;
+    aspect-ratio: 1.5;
+  }
+  .card-face {
+    padding: 18px 20px;
+  }
+  .fc-value {
+    font-size: 12.5px;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  .float-shadow {
+    display: none;
+  }
+  .flip-inner {
+    transform: none !important;
+    aspect-ratio: auto;
+  }
+  .card-back {
+    display: none;
+  }
+  .card-face {
+    position: static;
+    box-shadow: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .float-bob { animation: none; }
-  .float-card { transition: none; }
+  .float-bob {
+    animation: none;
+  }
+  .float-card {
+    transition: none;
+  }
+  .flip-inner {
+    transition: none;
+  }
 }

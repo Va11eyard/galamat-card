@@ -1,19 +1,10 @@
-import {
-  Button,
-  Column,
-  Heading,
-  RevealFx,
-  Row,
-  Tag,
-  Text,
-} from '@once-ui-system/core';
+'use client';
+
+import { Column, RevealFx } from '@once-ui-system/core';
 import { FloatCard } from '@/components/FloatCard';
 import { basePath, person } from '@/resources/site';
 
 const img = (src: string) => `${basePath}${src}`;
-
-const ringText =
-  'DINMUKHAMMED MYNZHASSAR · CTO · GALAMAT GROUP · ASTANA · ';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -26,97 +17,66 @@ const jsonLd = {
   url: person.website,
 };
 
-const P3D = { transformStyle: 'preserve-3d' } as const;
+const stopFlip = (e: React.MouseEvent) => e.stopPropagation();
 
 export default function Card() {
   return (
     <Column maxWidth="m" fillWidth horizontal="center" vertical="center" paddingY="32">
-      <FloatCard>
-        <Column gap="l" horizontal="center" align="center" style={P3D}>
-          {/* Circling card */}
-          <RevealFx translateY="12" style={P3D}>
-            <div className="card-orb" role="img" aria-label="Galamat Group logo ringed by a rotating caption">
-              <svg className="card-ring" viewBox="0 0 240 240" aria-hidden="true">
-                <defs>
-                  <path
-                    id="card-ring-path"
-                    d="M 120,120 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"
-                  />
-                </defs>
-                <text>
-                  <textPath href="#card-ring-path">{ringText}</textPath>
-                </text>
-              </svg>
-              <div className="card-disc">
+      <RevealFx translateY="12">
+        <FloatCard
+          front={
+            <>
+              <div className="fc-top">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img(person.logo)} alt="Galamat Group logo" width={88} height={64} />
+                <img
+                  src={img(person.wordmark)}
+                  alt="Galamat Group"
+                  className="fc-logo"
+                />
+                <span className="fc-flipnote">tap to flip</span>
               </div>
-            </div>
-          </RevealFx>
-
-          <Column horizontal="center" align="center" gap="8" style={P3D}>
-            <RevealFx translateY="12" delay={0.05} style={P3D}>
-              <Heading variant="display-strong-l">{person.name}</Heading>
-            </RevealFx>
-            <RevealFx translateY="12" delay={0.1} style={P3D}>
-              <Text variant="heading-default-m" onBackground="neutral-weak">
-                {person.role} · {person.org}
-              </Text>
-            </RevealFx>
-            <RevealFx translateY="12" delay={0.15} style={P3D}>
-              <Row gap="8" paddingTop="4" wrap horizontal="center">
-                <Tag size="l">Astana</Tag>
-                <Tag size="l">Medtech holding</Tag>
-              </Row>
-            </RevealFx>
-          </Column>
-
-          <RevealFx translateY="12" delay={0.2} style={P3D}>
-            <Row wrap gap="8" horizontal="center">
-              <Button
-                href={person.phoneHref}
-                prefixIcon="phone"
-                label={person.phone}
-                size="s"
-                variant="secondary"
-              />
-              <Button
-                href={`mailto:${person.email}`}
-                prefixIcon="email"
-                label={person.email}
-                size="s"
-                variant="secondary"
-              />
-              <Button
-                href={person.website}
-                prefixIcon="globe"
-                label={person.websiteLabel}
-                size="s"
-                variant="secondary"
-                target="_blank"
-              />
-            </Row>
-          </RevealFx>
-
-          <RevealFx translateY="12" delay={0.25} style={P3D}>
-            {/* A raw anchor, not Once UI Button: next/link defers basePath to the
-                client router, so a static page would ship a 404 href. */}
-            <a className="card-vcf" href={`${basePath}/card.vcf`} download>
-              Save contact (.vcf)
-            </a>
-          </RevealFx>
-
-          <RevealFx translateY="12" delay={0.3} style={P3D}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={img(person.wordmark)}
-              alt="Galamat Group"
-              height={18}
-              style={{ marginTop: '12px' }}
-            />
-          </RevealFx>
-        </Column>
-      </FloatCard>
+              <div className="fc-bottom">
+                <h1 className="fc-name">Dinmukhammed Mynzhassar</h1>
+                <p className="fc-role">CTO · Galamat Group</p>
+                <p className="fc-loc">Astana, Kazakhstan</p>
+              </div>
+            </>
+          }
+          back={
+            <>
+              <div className="fc-rows">
+                <a className="fc-row" href={person.phoneHref} onClick={stopFlip}>
+                  <svg className="fc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span className="fc-label">Phone</span>
+                  <span className="fc-value">{person.phone}</span>
+                </a>
+                <a className="fc-row" href={`mailto:${person.email}`} onClick={stopFlip}>
+                  <svg className="fc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <span className="fc-label">Email</span>
+                  <span className="fc-value">{person.email}</span>
+                </a>
+                <a className="fc-row" href={person.website} target="_blank" rel="noopener noreferrer" onClick={stopFlip}>
+                  <svg className="fc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  <span className="fc-label">Web</span>
+                  <span className="fc-value">{person.websiteLabel}</span>
+                </a>
+              </div>
+              <div className="fc-backbottom">
+                <a
+                  className="card-vcf"
+                  href={`${basePath}/card.vcf`}
+                  download
+                  onClick={stopFlip}
+                >
+                  Save contact (.vcf)
+                </a>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img(person.wordmark)} alt="Galamat Group" className="fc-logo fc-logo-sm" />
+              </div>
+            </>
+          }
+        />
+      </RevealFx>
 
       <script
         type="application/ld+json"

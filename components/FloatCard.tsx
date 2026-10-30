@@ -3,13 +3,20 @@
 import { useRef, useState } from 'react';
 
 /**
- * Wraps the card in a 3D scene: the panel tilts toward the pointer and its
- * contents sit at different depths. All motion collapses under
- * prefers-reduced-motion (the handler checks it, and CSS gates the bob).
+ * Floating, flippable business card. The panel tilts toward the pointer,
+ * idles on a bob, and flips front-to-back on click / Enter / Space.
+ * All motion collapses under prefers-reduced-motion.
  */
-export function FloatCard({ children }: { children: React.ReactNode }) {
+export function FloatCard({
+  front,
+  back,
+}: {
+  front: React.ReactNode;
+  back: React.ReactNode;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState<{ x: number; y: number } | null>(null);
+  const [flipped, setFlipped] = useState(false);
 
   const onMove = (e: React.PointerEvent) => {
     const el = ref.current;
@@ -18,13 +25,14 @@ export function FloatCard({ children }: { children: React.ReactNode }) {
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
     const py = (e.clientY - r.top) / r.height - 0.5;
-    setTilt({ x: -py * 9, y: px * 11 });
+    setTilt({ x: -py * 8, y: px * 10 });
   };
 
   const onLeave = () => setTilt(null);
+  const toggle = () => setFlipped((f) => !f);
 
   return (
-    <div className="float-scene" onPointerMove={onMove} onPointerLeave={onLeave}>
+    <div className="flip-scene" onPointerMove={onMove} onPointerLeave={onLeave}>
       <div
         ref={ref}
         className={`float-card${tilt ? ' is-tilting' : ''}`}
@@ -35,7 +43,23 @@ export function FloatCard({ children }: { children: React.ReactNode }) {
         }
       >
         <div className="float-bob">
-          <div className="float-body">{children}</div>
+          <div
+            className={`flip-inner${flipped ? ' is-flipped' : ''}`}
+            role="button"
+            tabIndex={0}
+            aria-pressed={flipped}
+            aria-label="Business card. Activate to flip to the contact side."
+            onClick={toggle}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
+              }
+            }}
+          >
+            <div className="card-face card-front">{front}</div>
+            <div className="card-face card-back">{back}</div>
+          </div>
         </div>
         <div className="float-shadow" aria-hidden="true" />
       </div>
