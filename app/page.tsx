@@ -94,14 +94,11 @@ export default function Card() {
       </RevealFx>
 
       <RevealFx translateY="12" delay={0.25}>
-        <Button
-          href={`${basePath}/card.vcf`}
-          prefixIcon="download"
-          label="Save contact"
-          size="s"
-          variant="secondary"
-          download
-        />
+        {/* A raw anchor, not Once UI Button: next/link defers basePath to the
+            client router, so a static page would ship a 404 href. */}
+        <a className="card-vcf" href={`${basePath}/card.vcf`} download>
+          Save contact (.vcf)
+        </a>
       </RevealFx>
 
       <RevealFx translateY="12" delay={0.3}>

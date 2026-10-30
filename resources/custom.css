@@ -73,3 +73,21 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .card-ring { animation: none; }
 }
+.card-vcf {
+  display: inline-block;
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--neutral-on-background-strong, #1f1f1f);
+  border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
+  border-radius: 999px;
+  padding: 10px 16px;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.card-vcf:hover {
+  background: var(--neutral-background-strong, #141414);
+  color: var(--neutral-on-background-strong, #fcfbf8);
+}

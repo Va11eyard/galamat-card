@@ -8,10 +8,10 @@ import type { Metadata } from 'next';
 import { Background, Column, Flex, RevealFx } from '@once-ui-system/core';
 import type { Opacity } from '@once-ui-system/core';
 import { Providers } from '@/components/Providers';
-import { effects, fonts, style } from '@/resources/site';
+import { effects, fonts, style, basePath, siteUrl } from '@/resources/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://va11eyard.github.io'),
+  metadataBase: new URL(siteUrl),
   title: 'Dinmukhammed Mynzhassar · CTO, Galamat Group',
   description:
     'Digital business card: Dinmukhammed Mynzhassar, CTO at Galamat Group. Phone, email and website in one place.',
@@ -67,7 +67,7 @@ export default function RootLayout({
     >
       <head>
         <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInit }} />
-        <link rel="icon" href="/galamat-logo-header.svg" type="image/svg+xml" />
+        <link rel="icon" href={`${siteUrl}/galamat-logo-header.svg`} type="image/svg+xml" />
       </head>
       <Providers>
         <Column
