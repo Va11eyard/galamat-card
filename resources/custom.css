@@ -91,3 +91,66 @@ html {
   background: var(--neutral-background-strong, #141414);
   color: var(--neutral-on-background-strong, #fcfbf8);
 }
+
+/* ---------- floating 3D card ---------- */
+.float-scene {
+  perspective: 1100px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.float-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+.float-card.is-tilting {
+  animation: none;
+}
+.float-bob {
+  transform-style: preserve-3d;
+  animation: float-bob 6s ease-in-out infinite;
+}
+.float-body {
+  transform-style: preserve-3d;
+  background: var(--page-background, #fcfbf8);
+  border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
+  border-radius: 24px;
+  padding: 40px 34px 30px;
+  box-shadow:
+    0 24px 50px -18px rgba(20, 20, 20, 0.28),
+    0 6px 18px -8px rgba(20, 20, 20, 0.16);
+}
+.float-shadow {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.22);
+  filter: blur(14px);
+  transform: translateZ(-60px);
+}
+/* depth layers inside the card */
+.float-body > * {
+  transform-style: preserve-3d;
+}
+.float-card .card-orb {
+  transform: translateZ(56px);
+}
+.float-card h1 {
+  transform: translateZ(34px);
+}
+.float-card .card-vcf {
+  transform: translateZ(28px);
+}
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-bob { animation: none; }
+  .float-card { transition: none; }
+}
