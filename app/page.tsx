@@ -71,7 +71,7 @@ export default function Card() {
               <div className="fc-keyline" aria-hidden="true" />
               <div className="fc-top">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img(person.wordmark)} alt="Galamat Group" className="fc-logo" />
+                <img src={img(person.logo)} alt="Galamat Group" className="fc-logo" />
                 <span className="fc-flipnote">tap to flip</span>
               </div>
               <div className="fc-rows">

@@ -18,15 +18,22 @@ html {
   text-transform: uppercase;
   text-decoration: none;
   color: #141414;
+  background: #fcfbf8;
   border: 1.5px solid #141414;
   border-radius: 999px;
   padding: 8px 14px;
   transition: background 0.16s ease, color 0.16s ease;
   white-space: nowrap;
+  position: relative;
+  z-index: 1;
 }
-.card-vcf:hover {
-  background: #141414;
-  color: #fcfbf8;
+/* Touch devices leave :hover stuck after a tap; only apply the inversion on
+   devices that can actually hover. */
+@media (hover: hover) {
+  .card-vcf:hover {
+    background: #141414;
+    color: #fcfbf8;
+  }
 }
 
 /* ---------- floating flippable business card ---------- */
@@ -171,7 +178,7 @@ html {
 
 /* ---------- back face ---------- */
 .fc-logo {
-  height: 22px;
+  height: 64px;
   width: auto;
 }
 .fc-rows {

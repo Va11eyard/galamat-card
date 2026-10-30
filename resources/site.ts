@@ -31,8 +31,10 @@ export const person = {
   name: 'Dinmukhammed Mynzhassar',
   role: 'CTO',
   org: 'Galamat Group',
-  logo: '/galamat-logo-header.svg',
-  wordmark: '/galamat-logo-wordmark.svg',
+  // Full "Galamat Group" lockup recolored to the brand's own light-mode ink
+  // (#141414, the value their var(--fill-0) resolves to); the upstream file
+  // hardcodes white for dark surfaces, and iOS Safari mishandles var() fills.
+  logo: '/galamat-logo.svg',
   phone: '+7 747 039 20 08',
   phoneHref: 'tel:+77470392008',
   email: 'dimash@galamat.com',

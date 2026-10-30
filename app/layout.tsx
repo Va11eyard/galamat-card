@@ -67,7 +67,7 @@ export default function RootLayout({
     >
       <head>
         <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInit }} />
-        <link rel="icon" href={`${siteUrl}/galamat-logo-header.svg`} type="image/svg+xml" />
+        <link rel="icon" href={`${siteUrl}/galamat-logo.svg`} type="image/svg+xml" />
       </head>
       <Providers>
         <Column
