@@ -22,7 +22,9 @@ export const fonts = { heading, body, label, code };
 export const effects = {
   mask: { cursor: false, x: 50, y: 0, radius: 100 },
   gradient: { display: false },
-  dots: { display: true, opacity: 40, size: '2' as const, color: 'brand-background-strong' },
+  // The card is now wine with gold accents; the cyan dot field competed with it,
+  // so the page texture is neutral and the card carries the color.
+  dots: { display: true, opacity: 40, size: '2' as const, color: 'neutral-alpha-medium' },
   grid: { display: false },
   lines: { display: false },
 };
@@ -31,10 +33,11 @@ export const person = {
   name: 'Dinmukhammed Mynzhassar',
   role: 'CTO',
   org: 'Galamat Group',
-  // Full "Galamat Group" lockup recolored to the brand's own light-mode ink
-  // (#141414, the value their var(--fill-0) resolves to); the upstream file
-  // hardcodes white for dark surfaces, and iOS Safari mishandles var() fills.
-  logo: '/galamat-logo.svg',
+  // Galamat ships the lockup in two monochrome cuts. The card face is wine
+  // stock, so it uses their own white file verbatim (literal fill="white";
+  // the ink variant's var(--fill-0) paints invisible on iOS Safari). The ink
+  // file stays as the favicon, where white would vanish on light browser chrome.
+  logo: '/galamat-logo-white.svg',
   phone: '+7 747 039 20 08',
   phoneHref: 'tel:+77470392008',
   email: 'dimash@galamat.com',

@@ -8,8 +8,18 @@ html {
   background-color: #fafaf8;
 }
 
+/* The card is wine card stock; the page around it stays paper. */
+:root {
+  --wine: #5e1b2a;
+  --wine-edge: #3b0f1a;
+  --cream: #f6eee7;
+  --gold: #d8b26b;
+}
+
 /* ---------- save-contact pill ---------- */
-.card-vcf {
+/* Once UI colors every anchor with `a:not(.button)`, whose specificity beats a
+   bare class. Element-qualified selectors tie it, and this file loads last. */
+a.card-vcf {
   display: inline-block;
   font-family: var(--font-code), ui-monospace, monospace;
   font-size: 11px;
@@ -17,9 +27,9 @@ html {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #141414;
-  background: #fcfbf8;
-  border: 1.5px solid #141414;
+  color: var(--wine);
+  background: var(--cream);
+  border: 1.5px solid var(--cream);
   border-radius: 999px;
   padding: 8px 14px;
   transition: background 0.16s ease, color 0.16s ease;
@@ -30,9 +40,9 @@ html {
 /* Touch devices leave :hover stuck after a tap; only apply the inversion on
    devices that can actually hover. */
 @media (hover: hover) {
-  .card-vcf:hover {
-    background: #141414;
-    color: #fcfbf8;
+  a.card-vcf:hover {
+    background: transparent;
+    color: var(--cream);
   }
 }
 
@@ -62,7 +72,7 @@ html {
   outline: none;
 }
 .flip-inner:focus-visible {
-  outline: 2px solid #0e7490;
+  outline: 2px solid var(--gold);
   outline-offset: 8px;
   border-radius: 18px;
 }
@@ -74,15 +84,15 @@ html {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: var(--page-background, #fcfbf8);
-  border: 1.5px solid var(--neutral-border-strong, #1f1f1f);
+  background: var(--wine);
+  border: 1.5px solid var(--wine-edge);
   border-radius: 18px;
   padding: 26px 30px;
   display: flex;
   flex-direction: column;
   box-shadow:
-    0 24px 50px -18px rgba(20, 20, 20, 0.25),
-    0 6px 18px -8px rgba(20, 20, 20, 0.14);
+    0 24px 50px -18px rgba(59, 15, 26, 0.42),
+    0 6px 18px -8px rgba(59, 15, 26, 0.28);
   overflow: hidden;
 }
 .card-back {
@@ -95,7 +105,7 @@ html {
   bottom: -30px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(20, 20, 20, 0.22);
+  background: rgba(59, 15, 26, 0.3);
   filter: blur(14px);
   transform: translateZ(-60px);
 }
@@ -108,7 +118,7 @@ html {
 .fc-keyline {
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(20, 20, 20, 0.14);
+  border: 1px solid rgba(246, 238, 231, 0.16);
   border-radius: 12px;
   pointer-events: none;
 }
@@ -124,14 +134,14 @@ html {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.22em;
-  color: #141414;
+  color: var(--cream);
 }
 .fc-flipnote {
   font-family: var(--font-code), ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #9a968c;
+  color: rgba(246, 238, 231, 0.62);
 }
 .fc-bottom {
   margin-top: auto;
@@ -142,7 +152,7 @@ html {
   font-weight: 800;
   font-size: clamp(24px, 5.4vw, 34px);
   letter-spacing: -0.025em;
-  color: #141414;
+  color: var(--cream);
   line-height: 1.08;
 }
 .fc-role {
@@ -151,14 +161,14 @@ html {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0e7490;
+  color: var(--gold);
   margin-top: 9px;
 }
 .fc-loc {
   font-family: var(--font-code), ui-monospace, monospace;
   font-size: 10.5px;
   letter-spacing: 0.08em;
-  color: #6e6a60;
+  color: rgba(246, 238, 231, 0.72);
   margin-top: 5px;
 }
 .fc-ghost {
@@ -170,17 +180,19 @@ html {
   font-size: 96px;
   line-height: 1;
   letter-spacing: -0.02em;
-  /* blind emboss: text is the paper itself; relief comes from a top-left
-     highlight and a soft extruded shadow falling to the bottom-right */
-  color: var(--page-background, #fcfbf8);
+  /* blind emboss on wine stock: the raised face catches a little more light
+     than the surrounding paper, so the fill sits one step above --wine and the
+     highlight is white rather than paper-colored */
+  color: #63202e;
   text-shadow:
-    -1px -1px 1px rgba(255, 255, 255, 0.85),
-    1px 1px 2px rgba(20, 20, 20, 0.24),
-    2px 2px 4px rgba(20, 20, 20, 0.18),
-    3px 3px 6px rgba(20, 20, 20, 0.13),
-    4px 4px 9px rgba(20, 20, 20, 0.09),
-    6px 6px 14px rgba(20, 20, 20, 0.06),
-    9px 9px 18px rgba(20, 20, 20, 0.035);
+    -1px -1px 1px rgba(255, 255, 255, 0.3),
+    -2px -2px 3px rgba(255, 255, 255, 0.1),
+    1px 1px 2px rgba(0, 0, 0, 0.3),
+    2px 2px 4px rgba(0, 0, 0, 0.22),
+    3px 3px 6px rgba(0, 0, 0, 0.17),
+    4px 4px 9px rgba(0, 0, 0, 0.12),
+    6px 6px 14px rgba(0, 0, 0, 0.08),
+    9px 9px 18px rgba(0, 0, 0, 0.05);
   pointer-events: none;
   user-select: none;
 }
@@ -197,25 +209,25 @@ html {
   position: relative;
   margin-top: 10px;
 }
-.fc-row {
+a.fc-row {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(20, 20, 20, 0.08);
+  border-bottom: 1px solid rgba(246, 238, 231, 0.14);
   text-decoration: none;
-  color: #141414;
+  color: var(--cream);
 }
 .fc-row:last-child {
   border-bottom: 0;
 }
-.fc-row:hover .fc-value {
-  color: #0e7490;
+a.fc-row:hover .fc-value {
+  color: var(--gold);
 }
 .fc-icon {
   width: 15px;
   height: 15px;
-  color: #0e7490;
+  color: var(--gold);
   flex: none;
   position: relative;
   z-index: 1;
@@ -225,7 +237,7 @@ html {
   font-size: 9.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #9a968c;
+  color: rgba(246, 238, 231, 0.62);
   width: 52px;
   flex: none;
   position: relative;
@@ -250,7 +262,7 @@ html {
   font-family: var(--font-code), ui-monospace, monospace;
   font-size: 9.5px;
   letter-spacing: 0.14em;
-  color: #9a968c;
+  color: rgba(246, 238, 231, 0.62);
 }
 
 /* ---------- water wave under the phone row ---------- */
@@ -274,7 +286,7 @@ html {
 }
 .fc-wave path {
   fill: none;
-  stroke: #0e7490;
+  stroke: var(--gold);
   stroke-width: 1.4;
 }
 .fc-wave .w1 {
@@ -308,6 +320,37 @@ html {
   body {
     background: #ffffff !important;
   }
+  /* Browsers drop background fills when printing, so the wine face would come
+     out as cream text on white. Everything reverts to ink on paper. */
+  .card-face {
+    background: #ffffff;
+    border-color: #1f1f1f;
+    box-shadow: none;
+  }
+  .fc-brand,
+  .fc-name,
+  a.fc-row,
+  .fc-value {
+    color: #141414;
+  }
+  .fc-role,
+  .fc-icon {
+    color: #141414;
+  }
+  .fc-loc,
+  .fc-label,
+  .fc-print,
+  .fc-flipnote {
+    color: #6e6a60;
+  }
+  .fc-row {
+    border-bottom-color: rgba(20, 20, 20, 0.14);
+  }
+  a.card-vcf {
+    background: #ffffff;
+    color: #141414;
+    border-color: #141414;
+  }
   .float-shadow,
   .fc-ghost,
   .fc-wave,
@@ -323,7 +366,6 @@ html {
   }
   .card-face {
     position: static;
-    box-shadow: none;
   }
 }
 
