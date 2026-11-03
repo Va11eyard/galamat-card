@@ -197,50 +197,22 @@ a.card-vcf {
   user-select: none;
 }
 
-/* The QR is the chip: gold plate, dark modules, and four contact ticks that
-   stop inside the padding so they never cross the code itself. */
-.fc-qr {
+/* EMV contact module. A real chip is about 15% of the card width, so this is
+   sized from the face rather than fixed, and the pad detail is drawn in SVG. */
+.fc-chip {
   position: absolute;
   right: 26px;
   top: 50%;
   transform: translateY(-56%);
-  width: 24%;
-  max-width: 132px;
-  height: auto;
-  aspect-ratio: 1;
-  background: var(--gold);
-  border: 1px solid #a87e33;
-  border-radius: 9px;
-  padding: 10px;
-  box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -1.5px 0 rgba(120, 86, 26, 0.4),
-    0 2px 5px rgba(35, 8, 15, 0.45);
+  width: 15%;
+  min-width: 56px;
   z-index: 2;
+  filter: drop-shadow(0 2px 3px rgba(35, 8, 15, 0.5));
 }
-.fc-qr::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(#a87e33, #a87e33) top center / 1.5px 10px no-repeat,
-    linear-gradient(#a87e33, #a87e33) bottom center / 1.5px 10px no-repeat,
-    linear-gradient(#a87e33, #a87e33) center left / 10px 1.5px no-repeat,
-    linear-gradient(#a87e33, #a87e33) center right / 10px 1.5px no-repeat;
-}
-
-.fc-qr::after {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(168, 126, 51, 0.5);
-  border-radius: 5px;
-  pointer-events: none;
-}
-.fc-qr img {
-  position: relative;
-  z-index: 1;
+.fc-chip-svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ---------- back face ---------- */
@@ -360,8 +332,7 @@ a.fc-row:hover .fc-value {
   .fc-ghost {
     font-size: 64px;
   }
-  .fc-qr {
-    width: 27%;
+  .fc-chip {
     right: 20px;
   }
 }

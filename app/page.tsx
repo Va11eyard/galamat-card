@@ -29,6 +29,17 @@ const GlobeIcon = (
   <svg className="fc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
 );
 
+const Chip = (
+  <svg className="fc-chip-svg" viewBox="0 0 88 66" aria-hidden="true">
+    <rect x="0.75" y="0.75" width="86.5" height="64.5" rx="9" fill="#b8944a" stroke="#8d6d2c" strokeWidth="1.5" />
+    <rect x="0.75" y="0.75" width="86.5" height="9" rx="9" fill="#cba964" />
+    <g fill="none" stroke="#8d6d2c" strokeWidth="1.6">
+      <rect x="26" y="20" width="36" height="26" rx="4" fill="#c9a55c" />
+      <path d="M26 27H2M26 39H2M62 27h24M62 39h24M35 20V3M53 20V3M35 46v17M53 46v17" />
+    </g>
+  </svg>
+);
+
 const Wave = (
   <svg className="fc-wave-svg" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true">
     <path
@@ -51,14 +62,7 @@ export default function Card() {
             <>
               <div className="fc-keyline" aria-hidden="true" />
               <span className="fc-ghost" aria-hidden="true">CTO</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="fc-qr"
-                src={img('/qr-site.svg')}
-                alt="QR code that opens my personal site"
-                width={120}
-                height={120}
-              />
+              <span className="fc-chip">{Chip}</span>
               <div className="fc-top">
                 <span className="fc-brand">GALAMAT GROUP</span>
                 <span className="fc-flipnote">tap to flip</span>
