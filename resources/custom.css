@@ -197,24 +197,6 @@ a.card-vcf {
   user-select: none;
 }
 
-/* EMV contact module. A real chip is about 15% of the card width, so this is
-   sized from the face rather than fixed, and the pad detail is drawn in SVG. */
-.fc-chip {
-  position: absolute;
-  right: 26px;
-  top: 50%;
-  transform: translateY(-56%);
-  width: 15%;
-  min-width: 56px;
-  z-index: 2;
-  filter: drop-shadow(0 2px 3px rgba(35, 8, 15, 0.5));
-}
-.fc-chip-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 /* ---------- back face ---------- */
 .fc-logo {
   height: 64px;
@@ -331,9 +313,6 @@ a.fc-row:hover .fc-value {
   }
   .fc-ghost {
     font-size: 64px;
-  }
-  .fc-chip {
-    right: 20px;
   }
 }
 
