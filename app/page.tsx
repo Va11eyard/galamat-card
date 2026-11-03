@@ -51,6 +51,14 @@ export default function Card() {
             <>
               <div className="fc-keyline" aria-hidden="true" />
               <span className="fc-ghost" aria-hidden="true">CTO</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="fc-qr"
+                src={img('/qr-site.svg')}
+                alt="QR code that opens my personal site"
+                width={120}
+                height={120}
+              />
               <div className="fc-top">
                 <span className="fc-brand">GALAMAT GROUP</span>
                 <span className="fc-flipnote">tap to flip</span>

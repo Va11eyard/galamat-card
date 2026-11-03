@@ -197,6 +197,23 @@ a.card-vcf {
   user-select: none;
 }
 
+/* The QR is the chip: same slot a contact card would use, mid-right, sitting
+   over the embossed CTO rather than replacing it. */
+.fc-qr {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-56%);
+  width: 23%;
+  max-width: 126px;
+  height: auto;
+  aspect-ratio: 1;
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 5px;
+  z-index: 2;
+}
+
 /* ---------- back face ---------- */
 .fc-logo {
   height: 64px;
@@ -313,6 +330,10 @@ a.fc-row:hover .fc-value {
   }
   .fc-ghost {
     font-size: 64px;
+  }
+  .fc-qr {
+    width: 27%;
+    right: 20px;
   }
 }
 
